@@ -76,34 +76,31 @@ def run(args):
     ##########
     # DNA
     elif args.analysis_type == "dna":
-        
+
+        """
         # BWA stage
-        # from tasks.bwa_alignment import *
-        # bwa_alignment_task = Bwa_alignment(args.output_dir, tmp_dir, sample_conf, param_conf)
-        # p1 = multiprocessing.Process(target = batch_engine.execute, args = (bwa_alignment_task,))
-        # p1.start()
-        # p1.join()
+        from tasks.bwa_alignment import *
+        bwa_alignment_task = Bwa_alignment(args.output_dir, tmp_dir, sample_conf, param_conf)
+        proc_bwa = multiprocessing.Process(target = batch_engine.execute, args = (bwa_alignment_task,))
+        proc_bwa.start()
+        proc_bwa.join()
 
-        # from tasks.sv_parse import *
-        # sv_parse_task = SV_parse(args.output_dir, tmp_dir, sample_conf, param_conf)
-        # p1 = multiprocessing.Process(target = batch_engine.print_command, args = (sv_parse_task,))
-        # p1.start()
-        # p1.join()
-
+        # SV stage
+        from tasks.sv_parse import *
+        sv_parse_task = SV_parse(args.output_dir, tmp_dir, sample_conf, param_conf)
         from tasks.sv_filt import *
         sv_filt_task = SV_filt(args.output_dir, tmp_dir, sample_conf, param_conf)
-        p1 = multiprocessing.Process(target = batch_engine.print_command, args = (sv_filt_task,))
-        p1.start()
-        p1.join()
+        proc_sv = multiprocessing.Process(target = batch_engine.seq_execute, args = ([sv_parse_task,sv_filt_task],))
+        proc_sv.start()
+        proc_sv.join()
 
-
-        """        
         # Mutation call stage
         from tasks.mutation_call import *
         mutation_call_task = Mutation_call(args.output_dir, tmp_dir, sample_conf, param_conf)
-        p1 = multiprocessing.Process(target = batch_engine.execute, args = (mutation_call_task,))
-        p1.start()
-        p1.join()
+        proc_mutation = multiprocessing.Process(target = batch_engine.execute, args = (mutation_call_task,))
+        proc_mutation.start()
+        proc_mutation.join()
+        """
         
         # QC stage
         from tasks.genomon_qc import *
@@ -112,6 +109,7 @@ def run(args):
         proc_qc.start()
         proc_qc.join()
         
+        """
         # pmsignature
         from tasks.pmsignature import *
         pmsignature_task = Pmsignature(args.output_dir, tmp_dir, sample_conf, param_conf, run_conf)
@@ -120,10 +118,12 @@ def run(args):
         proc_pmsignature.join()
         """
     
+    """
     # paplot stage
     from tasks.paplot import *
     paplot_task = Paplot(args.output_dir, tmp_dir, sample_conf, param_conf, run_conf)
     proc_paplot = multiprocessing.Process(target = batch_engine.execute, args = (paplot_task,))
     proc_paplot.start()
     proc_paplot.join()
+    """
 

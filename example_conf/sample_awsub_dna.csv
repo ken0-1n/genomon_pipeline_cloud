@@ -1,0 +1,14 @@
+[fastq]
+5929T,s3://kchiba-test-batch/fastq/Sample_100percent_5929_chr22/sequence1.fastq,s3://kchiba-test-batch/fastq/Sample_100percent_5929_chr22/sequence2.fastq
+5929N,s3://kchiba-test-batch/fastq/Sample_CRL_5929_chr22/sequence1.fastq,s3://kchiba-test-batch/fastq/Sample_CRL_5929_chr22/sequence2.fastq
+
+[mutation_call]
+5929T,5929N,None
+5929N,None,None
+
+[sv_detection]
+5929T,5929N,None
+
+[summary]
+5929T
+5929N
